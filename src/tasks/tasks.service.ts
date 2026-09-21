@@ -29,4 +29,11 @@ export class TasksService {
         console.log("idx " , taskExist, "task " , this.tasks[taskExist])
         return this.tasks[taskExist]
     }
+
+    deleteTaskById(id: string): string{
+        const taskExist = this.tasks.findIndex((task) => task.id === id)
+        if(taskExist === -1)return "Task not found"
+        this.tasks.splice(taskExist, 1)
+        return "Task deleted successfully"
+    }
 }
