@@ -30,10 +30,7 @@ export class TasksService {
         return this.tasks[taskExist]
     }
 
-    deleteTaskById(id: string): string{
-        const taskExist = this.tasks.findIndex((task) => task.id === id)
-        if(taskExist === -1)return "Task not found"
-        this.tasks.splice(taskExist, 1)
-        return "Task deleted successfully"
+    deleteTaskById(id: string): void{
+        this.tasks = this.tasks.filter((task) => task.id !== id)
     }
 }
