@@ -35,15 +35,8 @@ export class TasksService {
     }
 
     updateTaskStatus(id: string, status: TaskStatus): Task {
-        const updatedTask = this.tasks.find((task) => task.id === id);
-        if (!updatedTask) {
-            throw new Error(`Task with ID ${id} not found.`);
-        }
-        let newTask: Task = {
-            ...updatedTask,
-            status,
-        }
-        this.tasks = this.tasks.map((task) => task.id === id ? newTask : task)
-        return newTask
+        const task = this.getTaskByID(id)
+        task!.status = status
+        return task!
     }
 }
