@@ -12,7 +12,7 @@ export class TasksService {
     ) {}
     
     async getTasks(filter: GetTaskFilterDto) : Promise<Task[]>{
-        
+        return this.taskRepository.getTasks(filter)
     }
 
     createNewTask(data: CreateTaskDto): Promise<Task>{
