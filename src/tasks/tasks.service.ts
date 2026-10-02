@@ -10,9 +10,10 @@ export class TasksService {
     constructor(
         private taskRepository: TaskRepository
     ) {}
-    // getAllTasks(){
-    //     return this.tasks
-    // }
+    
+    async getTasks(filter: GetTaskFilterDto) : Promise<Task[]>{
+        
+    }
 
     createNewTask(data: CreateTaskDto): Promise<Task>{
         return this.taskRepository.createTask(data)
@@ -31,7 +32,6 @@ export class TasksService {
 
     async deleteTaskById(id: string): Promise<void>{
         //remove => need to get the entity then remove it
-
         // const found = await this.getTaskByID(id)
         // await this.taskRepository.remove(found)
 

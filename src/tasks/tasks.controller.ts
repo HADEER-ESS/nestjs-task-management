@@ -10,18 +10,10 @@ import { Task } from './task.entity.js';
 export class TasksController {
     constructor(private readonly tasksService : TasksService) {}
 
-    // @Get()
-    // getTasks(@Query() filter: GetTaskFilterDto) : Task[] {
-    //     //condition if user enter any search query
-    //     if(Object.keys(filter).length){
-    //         // run filter function
-    //         return this.tasksService.searchTasks(filter)
-    //     }
-    //     //otherwise return all tasks
-    //     else{
-    //          return this.tasksService.getAllTasks()
-    //     }
-    // }
+    @Get()
+    getTasks(@Query() filter: GetTaskFilterDto) : Promise<Task[]> {
+        return this.tasksService.getTasks(filter)
+    }
 
     @Get('/:id')
     getTaskById(@Param('id') id: string): Promise<Task>{
