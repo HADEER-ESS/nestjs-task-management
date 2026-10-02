@@ -29,10 +29,18 @@ export class TasksService {
         return found
     }
 
-    // deleteTaskById(id: string): void{
-    //     const found = this.getTaskByID(id)
-    //     this.tasks = this.tasks.filter((task) => task.id !== found.id)
-    // }
+    async deleteTaskById(id: string): Promise<void>{
+        //remove => need to get the entity then remove it
+
+        // const found = await this.getTaskByID(id)
+        // await this.taskRepository.remove(found)
+
+        //delete => delete directly by id, or property, or condition
+        const result = await this.taskRepository.delete(id)
+        if(result.affected === 0){
+            throw new NotFoundException(`Task with ID ${id} not found`)
+        }
+    }
 
     // updateTaskStatus(id: string, status: TaskStatus): Task {
     //     const task = this.getTaskByID(id)
