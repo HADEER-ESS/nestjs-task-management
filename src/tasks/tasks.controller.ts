@@ -28,10 +28,10 @@ export class TasksController {
         return this.tasksService.getTaskByID(id)
     }
 
-    // @Post()
-    // createNewTask(@Body() body: CreateTaskDto): Task{
-    //     return this.tasksService.createNewTask(body)
-    // }
+    @Post()
+    createNewTask(@Body() body: CreateTaskDto): Promise<Task>{
+        return this.tasksService.createNewTask(body)
+    }
 
     // @Delete('/:id')
     // deleteTaskById(@Param('id') id:string): void{

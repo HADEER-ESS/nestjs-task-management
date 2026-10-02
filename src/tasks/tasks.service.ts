@@ -16,20 +16,14 @@ export class TasksService {
     //     return this.tasks
     // }
 
-    // createNewTask(data: CreateTaskDto): Task{
-    //     const {title, description} = data
-    //     const task: Task = {
-    //         id: uuid(),
-    //         title,
-    //         description,
-    //         status: TaskStatus.OPEN
-    //     }
-    //     this.tasks.push(task)
-    //     return task
-    // }
+    createNewTask(data: CreateTaskDto): Promise<Task>{
+        return this.taskRepository.createTask(data)
+    }
 
     async getTaskByID(id: string): Promise<Task>{
-        const found = await this.taskRepository.findOneBy({ id })
+        const found = await this.taskRepository.findOne({
+            where:{id: id}
+        })
 
         if(!found){
             throw new NotFoundException()
