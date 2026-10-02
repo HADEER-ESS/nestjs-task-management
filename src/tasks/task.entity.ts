@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { TaskStatus } from "./task.model.js";
+import { TaskStatus } from "./task-status.enum.js";
 
 // Specify the Task entity for DB
 @Entity()
