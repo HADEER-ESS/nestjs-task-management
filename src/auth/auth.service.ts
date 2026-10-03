@@ -3,6 +3,8 @@ import { User } from './user.entity.js';
 import { QueryFailedError, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from './dto/create-user.dto.js';
+import * as bcrypt from 'bcrypt';
+
 
 @Injectable()
 export class AuthService {
@@ -14,8 +16,10 @@ export class AuthService {
     async signUp(createUserDto: CreateUserDto): Promise<void>{
         const { username, password } = createUserDto;
         //hashing the password
+        const salt = await bcrypt.genSalt(); // generate the SALT
+        const hashedPassword = await bcrypt.hash(password, salt); // hash the password
 
-        let user = this.userRepository.create({ username, password });
+        let user = this.userRepository.create({ username, password: hashedPassword });
         try {
             await this.userRepository.save(user);
         } catch (error: unknown) {
