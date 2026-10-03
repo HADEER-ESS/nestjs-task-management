@@ -39,7 +39,7 @@ export class AuthService {
         }
     }
 
-    async signIn(createUserDto: CreateUserDto) : Promise<void>{ // return TOKEN
+    async signIn(createUserDto: CreateUserDto) : Promise<string>{ // return TOKEN
         // check if user exist or not
         const {username, password} = createUserDto;
         const found = await this.userRepository.findOne({ where: { username } });
@@ -48,9 +48,11 @@ export class AuthService {
             throw new NotFoundException('User not found');
         }
         // check if the password is correct
+        //                              entered password, hashed password
         const isMatch = await bcrypt.compare(password, found.password);
         if(!isMatch){
             throw new UnauthorizedException('Invalid password');
         }
+        return 'success'
     }
 }

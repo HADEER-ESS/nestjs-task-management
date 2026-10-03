@@ -13,7 +13,7 @@ export class AuthController {
     }
 
     @Post('/signin')
-    signIn(@Body() createUserDto: CreateUserDto): Promise<void> {
+    signIn(@Body() createUserDto: CreateUserDto): Promise<string> {
         return this.authService.signIn(createUserDto);
     }
 }
