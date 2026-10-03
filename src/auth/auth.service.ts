@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
+import { ConflictException, Injectable, InternalServerErrorException, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { User } from './user.entity.js';
 import { QueryFailedError, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -36,6 +36,21 @@ export class AuthService {
             }else{
                 throw new InternalServerErrorException();
             }
+        }
+    }
+
+    async signIn(createUserDto: CreateUserDto) : Promise<void>{ // return TOKEN
+        // check if user exist or not
+        const {username, password} = createUserDto;
+        const found = await this.userRepository.findOne({ where: { username } });
+
+        if(!found){
+            throw new NotFoundException('User not found');
+        }
+        // check if the password is correct
+        const isMatch = await bcrypt.compare(password, found.password);
+        if(!isMatch){
+            throw new UnauthorizedException('Invalid password');
         }
     }
 }
