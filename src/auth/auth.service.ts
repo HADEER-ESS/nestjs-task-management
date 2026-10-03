@@ -11,12 +11,12 @@ export class AuthService {
         private userRepository: Repository<User>
     ){}
 
-    async createUser(createUserDto: CreateUserDto){
-        const { userName, password } = createUserDto;
+    async signUp(createUserDto: CreateUserDto): Promise<void>{
+        const { username, password } = createUserDto;
         //hashing the password
 
         let user = this.userRepository.create({
-            name: userName,
+            username,
             password
         });
 
