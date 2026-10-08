@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { TaskStatus } from "./task-status.enum.js";
+import { User } from "../auth/user.entity.js";
 
 // Specify the Task entity for DB
 @Entity()
@@ -7,10 +8,20 @@ export class Task {
 // define the properties of the task columns
     @PrimaryGeneratedColumn('uuid')
     id: string;
+
     @Column()
     title: string;
+
     @Column()
     description: string;
+
     @Column()
     status: TaskStatus;
+
+    @ManyToOne(
+        type => User,
+        user => user.tasks,
+        {eager: false}
+    )
+    user: User;
 }
