@@ -4,13 +4,16 @@ import { QueryFailedError, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from './dto/create-user.dto.js';
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
+import { JwtPayload } from './jwt-payload.interface.js';
 
 
 @Injectable()
 export class AuthService {
     constructor(
         @InjectRepository(User)
-        private userRepository: Repository<User>
+        private userRepository: Repository<User>,
+        private jwtService: JwtService
     ){}
 
     async signUp(createUserDto: CreateUserDto): Promise<void>{
@@ -39,7 +42,7 @@ export class AuthService {
         }
     }
 
-    async signIn(createUserDto: CreateUserDto) : Promise<string>{ // return TOKEN
+    async signIn(createUserDto: CreateUserDto) : Promise<{accessToken: string}>{ // return TOKEN
         // check if user exist or not
         const {username, password} = createUserDto;
         const found = await this.userRepository.findOne({ where: { username } });
@@ -53,6 +56,8 @@ export class AuthService {
         if(!isMatch){
             throw new UnauthorizedException('Invalid password');
         }
-        return 'success'
+        const payload: JwtPayload = {username};
+        const accessToken = await this.jwtService.sign(payload)
+        return {accessToken} //TOKEN
     }
 }
