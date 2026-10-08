@@ -9,7 +9,7 @@ import { JwtModule } from '@nestjs/jwt';
 @Module({
   imports: [
     PassportModule.register({defaultStrategy: 'jwt'}),
-    JwtModule.register({
+    JwtModule.register({ // this MODULE export services =called=> JWT Service
       secret: 'topSecret101',
       signOptions:{
         expiresIn: 3600 // 1 hour
