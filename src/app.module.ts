@@ -25,7 +25,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService : ConfigService) => ({
+      useFactory: async (configService : ConfigService) => ({
         type: 'postgres',
         autoLoadEntities: true,
         synchronize: true,
