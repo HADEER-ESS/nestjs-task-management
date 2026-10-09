@@ -10,7 +10,8 @@ async function bootstrap() {
   });
   app.useGlobalPipes(new ValidationPipe())
   app.useGlobalInterceptors(new TransformInterceptor())
-  logger.log(`Application is running on: ${await app.getUrl()}`);
   await app.listen(process.env.PORT ?? 3000);
+  
+  logger.log(`Application is running on: ${await app.getUrl()}`);
 }
 await bootstrap();
