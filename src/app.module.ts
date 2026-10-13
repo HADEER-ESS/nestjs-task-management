@@ -25,8 +25,10 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async (configService : ConfigService) => ({
+      useFactory: async (configService: ConfigService) => ({
         type: 'postgres',
+        url: process.env.DATABASE_URL,
+        ssl: { rejectUnauthorized: false },
         autoLoadEntities: true,
         synchronize: true,
         host: configService.get<string>('DB_HOST'),
@@ -39,4 +41,4 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     AuthModule
   ],
 })
-export class AppModule {}
+export class AppModule { }
