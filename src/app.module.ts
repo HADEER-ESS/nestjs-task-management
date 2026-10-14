@@ -27,8 +27,6 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
         type: 'postgres',
-        url: process.env.DATABASE_URL,
-        ssl: { rejectUnauthorized: false },
         autoLoadEntities: true,
         synchronize: true,
         host: configService.get<string>('DB_HOST'),
