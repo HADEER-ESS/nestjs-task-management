@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module.js';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { configValidationSchema } from './config.schema.js';
+import { AppController } from './app.controller.js';
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -39,5 +40,6 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     }),
     AuthModule
   ],
+  controllers: [AppController]
 })
 export class AppModule { }
