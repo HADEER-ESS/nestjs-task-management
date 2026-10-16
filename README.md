@@ -122,5 +122,3 @@ Notes:
 **Hadeer Essam** · [GitHub](https://github.com/HADEER-ESS)
 
 ## License
-
-[MIT](LICENSE)
